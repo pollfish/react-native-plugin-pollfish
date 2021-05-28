@@ -80,7 +80,7 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
                 .pollfishUserRejectedSurveyListener(this)
                 .pollfishOpenedListener(this)
                 .pollfishClosedListener(this)
-                .platform(Platform.REACT);
+                .platform(Platform.REACT_NATIVE);
 
         if (requestUUID != null && !requestUUID.isEmpty()) {
             params.requestUUID(requestUUID);
