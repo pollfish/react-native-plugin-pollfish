@@ -47,8 +47,14 @@ Login at [www.pollfish.com](http://www.pollfish.com) and add a new app at Pollfi
 
 To add Pollfish plugin just type: 
 
+Using `yarn`
 ```bash
-npm install react-native-pollfish
+yarn add react-native-plugin-pollfish
+```
+
+Using `npm`
+```bash
+npm install react-native-plugin-pollfish
 ```
 
 And for iOS builds
