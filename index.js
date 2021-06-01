@@ -3,6 +3,14 @@ import { NativeEventEmitter, NativeModules } from 'react-native';
 const { RNPollfish } = NativeModules;
 const PollfishEventEmitter = new NativeEventEmitter(RNPollfish);
 
+const PollfishClosedListener = "onPollfishClosed";
+const PollfishOpenedListener = "onPollfishOpened";
+const PollfishSurveyNotAvailableListener = "onPollfishSurveyNotAvailable";
+const PollfishUserRejectedSurveyListener = "onUserRejectedSurvey";
+const PollfishSurveyReceivedListener = "onPollfishSurveyReceived";
+const PollfishSurveyCompletedListener = "onPollfishSurveyCompleted";
+const PollfishUserNotEligibleListener = "onUserNotEligible";
+
 const eventHandlers = {
     onPollfishClosed: new Map(),
     onPollfishOpened: new Map(),
@@ -14,24 +22,24 @@ const eventHandlers = {
 };
 
 const removeAllListeners = () => {
-    PollfishEventEmitter.removeAllListeners('onPollfishClosed');
-    PollfishEventEmitter.removeAllListeners('onPollfishOpened');
-    PollfishEventEmitter.removeAllListeners('onPollfishSurveyNotAvailable');
-    PollfishEventEmitter.removeAllListeners('onUserRejectedSurvey');
-    PollfishEventEmitter.removeAllListeners('onUserNotEligible');
-    PollfishEventEmitter.removeAllListeners('onPollfishSurveyReceived');
-    PollfishEventEmitter.removeAllListeners('onPollfishSurveyCompleted');
+    PollfishEventEmitter.removeAllListeners(PollfishClosedListener);
+    PollfishEventEmitter.removeAllListeners(PollfishOpenedListener);
+    PollfishEventEmitter.removeAllListeners(PollfishSurveyNotAvailableListener);
+    PollfishEventEmitter.removeAllListeners(PollfishUserRejectedSurveyListener);
+    PollfishEventEmitter.removeAllListeners(PollfishUserNotEligibleListener);
+    PollfishEventEmitter.removeAllListeners(PollfishSurveyReceivedListener);
+    PollfishEventEmitter.removeAllListeners(PollfishSurveyCompletedListener);
 };
 
 const addEventListener = (type, handler) => {
     switch (type) {
-        case 'onPollfishClosed':
-        case 'onPollfishOpened':
-        case 'onPollfishSurveyNotAvailable':
-        case 'onUserRejectedSurvey':
-        case 'onUserNotEligible':
-        case 'onPollfishSurveyReceived':
-        case 'onPollfishSurveyCompleted':
+        case PollfishClosedListener:
+        case PollfishOpenedListener:
+        case PollfishSurveyNotAvailableListener:
+        case PollfishUserRejectedSurveyListener:
+        case PollfishUserNotEligibleListener:
+        case PollfishSurveyReceivedListener:
+        case PollfishSurveyCompletedListener:
             eventHandlers[type].set(handler, PollfishEventEmitter.addListener(type, handler));
             break;
         default:
@@ -123,6 +131,13 @@ module.exports = {
     ...RNPollfish,
     Position,
     Builder,
+    PollfishClosedListener,
+    PollfishOpenedListener,
+    PollfishSurveyReceivedListener,
+    PollfishSurveyCompletedListener,
+    PollfishSurveyNotAvailableListener,
+    PollfishUserNotEligibleListener,
+    PollfishUserRejectedSurveyListener,
     init: (params) => RNPollfish.init(params._apiKey, params._indicatorPosition, params._indicatorPadding, params._offerwallMode, params._releaseMode, params._rewardMode, params._requestUUID, params._userProperties),
     show: () => RNPollfish.show(),
     hide: () => RNPollfish.hide(),

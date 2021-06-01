@@ -60,7 +60,7 @@ const Details = ({ navigation, route }) => {
   useEffect(() => {
     navigation.addListener('focus', this._onFocus);
 
-    RNPollfish.addEventListener("onPollfishSurveyReceived", (event) => {
+    RNPollfish.addEventListener(RNPollfish.PollfishSurveyReceivedListener, (event) => {
       
       if (event === undefined || event === null) {
         setState({
@@ -76,28 +76,28 @@ const Details = ({ navigation, route }) => {
       
     });
 
-    RNPollfish.addEventListener("onPollfishSurveyCompleted", (event) => {
+    RNPollfish.addEventListener(RNPollfish.PollfishSurveyCompletedListener, (event) => {
       setState({
         logText: `Survey Completed - CPA: IR: ${event.surveyIR}, LOI: ${event.surveyLOI}, Class: ${event.surveyClass}, Reward Value: ${event.rewardValue}, Reward Name: ${event.rewardName}, Remaining Completes: ${event.remainingCompletes}`,
         isPollfishReady: false
       });
     });
 
-    RNPollfish.addEventListener("onPollfishSurveyNotAvailable", (_) => {
+    RNPollfish.addEventListener(RNPollfish.PollfishSurveyNotAvailableListener, (_) => {
       setState({
         logText: "Survey Not Available",
         isPollfishReady: false
       });
     });
 
-    RNPollfish.addEventListener("onUserNotEligible", (_) => {
+    RNPollfish.addEventListener(RNPollfish.PollfishUserNotEligibleListener, (_) => {
       setState({
         logText: "User Not Eligible",
         isPollfishReady: false
       });
     });
 
-    RNPollfish.addEventListener("onUserRejectedSurvey", (_) => {
+    RNPollfish.addEventListener(RNPollfish.PollfishUserRejectedSurveyListener, (_) => {
       setState({
         logText: "User Rejected Survey",
         isPollfishReady: false
@@ -108,7 +108,7 @@ const Details = ({ navigation, route }) => {
       navigation.removeListener('focus', this._onFocus);
       RNPollfish.removeAllListeners();
     };
-  });
+  }, []);
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
