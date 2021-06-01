@@ -1,0 +1,39 @@
+{
+    "name": "react-native-plugin-pollfish",
+    "version": "1.0.0",
+    "description": "Pollfish React Native SDK",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Pollfish, Inc.",
+    "license": "Commercial",
+    "homepage": "https://www.pollfish.com",
+    "devDependencies": {
+        "react-native": "0.41.2"
+    },
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pollfish/react-native-plugin-pollfish"
+    },
+    "keywords": [
+        "react-native",
+        "Pollfish",
+        "monetization",
+        "survey",
+        "surveys",
+        "Market Research"
+    ],
+    "files": [
+        "src",
+        "lib",
+        "android",
+        "ios",
+        "cpp",
+        "react-native-pollfish.podspec"
+    ]
+}
