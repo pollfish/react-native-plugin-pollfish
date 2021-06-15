@@ -85,7 +85,7 @@ Param               | Description
 Import `RNPollfish` module
 
 ```js
-import RNPollfish from 'react-native-pollfish';
+import RNPollfish from 'react-native-plugin-pollfish';
 ```
 
 Initialize Pollfish
