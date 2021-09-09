@@ -16,6 +16,7 @@ import com.pollfish.builder.Params;
 import com.pollfish.builder.Platform;
 import com.pollfish.builder.Position;
 import com.pollfish.builder.UserProperties;
+import com.pollfish.builder.RewardInfo;
 import com.pollfish.callback.PollfishClosedListener;
 import com.pollfish.callback.PollfishOpenedListener;
 import com.pollfish.callback.PollfishSurveyCompletedListener;
@@ -54,20 +55,29 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
     @SuppressWarnings("unused")
     @ReactMethod
     public void init(
-            String apiKey,
+            String androidApiKey,
+            String iOSApiKey,
             int position,
             int padding,
             boolean offerwallMode,
             boolean releaseMode,
             boolean rewardMode,
             String requestUUID,
-            ReadableMap userProperties
+            ReadableMap userProperties,
+            ReadableMap rewardInfoMap,
+            String clickId,
+            String signature
     ) {
         if (getCurrentActivity() == null) {
             Log.w(TAG, "Pollfish initialization failed because getCurrentActivity == null");
+            return;
         }
 
-        Params.Builder params = new Params.Builder(apiKey)
+        if (androidApiKey == null) {
+            return;
+        }
+
+        Params.Builder params = new Params.Builder(androidApiKey)
                 .indicatorPosition(getPosition(position))
                 .indicatorPadding(padding)
                 .offerwallMode(offerwallMode)
@@ -82,8 +92,24 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
                 .pollfishClosedListener(this)
                 .platform(Platform.REACT_NATIVE);
 
-        if (requestUUID != null && !requestUUID.isEmpty()) {
+        if (requestUUID != null && !requestUUID.isEmpty() && !requestUUID.equals("null")) {
             params.requestUUID(requestUUID);
+        }
+
+        if (clickId != null && !clickId.isEmpty() && !clickId.equals("null")) {
+            params.clickId(clickId);
+        }
+
+        if (signature != null && !signature.isEmpty() && !signature.equals("null")) {
+            params.signature(signature);
+        }
+
+        if (!rewardInfoMap.equals(null)) {
+            RewardInfo rewardInfo = new RewardInfo(
+                    rewardInfoMap.getString("rewardName"),
+                    rewardInfoMap.getDouble("rewardConversion"));
+
+            params.rewardInfo(rewardInfo);
         }
 
         if (userProperties != null) {

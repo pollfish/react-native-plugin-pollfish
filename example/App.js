@@ -17,8 +17,12 @@ import {
 } from 'react-native';
 
 function initPollfish(mode) {
-  var builder = new RNPollfish.Builder('API_KEY')
+  var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY')
     .indicatorPosition(RNPollfish.Position.bottomLeft)
+    .rewardInfo({
+      rewardName: "Points",
+      rewardConversion: 1.3
+    });
   
   switch (mode) {
     case "Rewarded":
@@ -31,7 +35,7 @@ function initPollfish(mode) {
       break;
   }
 
-  RNPollfish.init(builder);
+  RNPollfish.init(builder.build());
 }
 
 function showPollfish() {

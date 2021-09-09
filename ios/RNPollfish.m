@@ -15,31 +15,59 @@ RCT_EXPORT_MODULE();
 
 #pragma mark - Exported Methods
 
-RCT_EXPORT_METHOD(init: (NSString *) apiKey
+RCT_EXPORT_METHOD(init: (NSString *) androidApiKey
+                  iOSApiKey:(NSString *) iOSApiKey
                   position:(int) position
                   padding:(int) padding
                   offerwallMode:(BOOL) offerwallMode
                   releaseMode:(BOOL) releaseMode
                   rewardMode:(BOOL) rewardMode
                   requestUUID:(NSString *) requestUUID
-                  userProperties:(NSDictionary *) userProperties)
+                  userProperties:(NSDictionary *) userProperties
+                  rewardInfo:(NSDictionary *) rewardInfoDict
+                  clickId:(NSString *) clickId
+                  signature:(NSString *) signature)
 {
-    PollfishParams * params = [[PollfishParams alloc] init:apiKey];
+    if (iOSApiKey == [NSNull null]) {
+        return;
+    }
+
+    PollfishParams * params = [[PollfishParams alloc] init:iOSApiKey];
     [params indicatorPosition:position];
     [params indicatorPadding:padding];
     [params offerwallMode:offerwallMode];
     [params releaseMode:releaseMode];
     [params rewardMode:rewardMode];
     [params platform:PlatformReactNative];
-    [params requestUUID:requestUUID];
     
-    UserProperties *userPropertiesBuilder = [[UserProperties alloc] init];
+    if (requestUUID != [NSNull null]) {
+        [params requestUUID:requestUUID];
+    }
     
-    [userProperties enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-        [userPropertiesBuilder customAttribute:object forKey:key];
-    }];
+    if (clickId != [NSNull null]) {
+        [params clickId:clickId];
+    }
     
-    [params userProperties:userPropertiesBuilder];
+    if (signature != [NSNull null]) {
+        [params signature:signature];
+    }
+    
+    if (userProperties != [NSNull null]) {
+        UserProperties *userPropertiesBuilder = [[UserProperties alloc] init];
+        
+        [userProperties enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
+            [userPropertiesBuilder customAttribute:object forKey:key];
+        }];
+        
+        [params userProperties:userPropertiesBuilder];
+    }
+    
+    if (rewardInfoDict != [NSNull null]) {
+        RewardInfo *rewardInfo = [[RewardInfo alloc] initWithRewardName: [rewardInfoDict valueForKey:@"rewardName"]
+                                                       rewardConversion: [[rewardInfoDict valueForKey:@"rewardConversion"] doubleValue]];
+        [params rewardInfo:rewardInfo];
+    }
+    
     
     [Pollfish initWith:params delegate:self];
 }
