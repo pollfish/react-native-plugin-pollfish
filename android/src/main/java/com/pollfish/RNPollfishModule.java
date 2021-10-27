@@ -104,7 +104,7 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
             params.signature(signature);
         }
 
-        if (!rewardInfoMap.equals(null)) {
+        if (rewardInfoMap != null) {
             RewardInfo rewardInfo = new RewardInfo(
                     rewardInfoMap.getString("rewardName"),
                     rewardInfoMap.getDouble("rewardConversion"));
