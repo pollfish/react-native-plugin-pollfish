@@ -16,6 +16,6 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,m,mm}"
   
   s.dependency "React"
-  s.dependency "Pollfish", "6.2.3"
+  s.dependency "Pollfish", "6.2.4"
 
 end
