@@ -18,11 +18,7 @@ import {
 
 function initPollfish(mode) {
   var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY')
-    .indicatorPosition(RNPollfish.Position.bottomLeft)
-    .rewardInfo({
-      rewardName: "Points",
-      rewardConversion: 1.3
-    });
+    .indicatorPosition(RNPollfish.Position.bottomLeft);
   
   switch (mode) {
     case "Rewarded":

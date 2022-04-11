@@ -29,7 +29,7 @@ Pollfish is a mobile monetization platform delivering surveys instead of ads thr
 
 <br/>
 
-## 3. Installation
+# Installation
 
 To add Pollfish plugin just type: 
 
@@ -51,9 +51,33 @@ cd ios && pod install && cd ..
 
 <br/>
 
-## Initialization
+# Initialization
+
+## 1. Import `RNPollfish` module
+
+```js
+import RNPollfish from 'react-native-plugin-pollfish';
+```
+
+<br/>
+
+## 2. Create a `RNPollfish.Builder` instance
 
 The Pollfish plugin must be initialized with one or two api keys depending on which platforms are you targeting. You can retrieve an API key from Pollfish Dashboard when you [sign up](https://www.pollfish.com/signup/publisher) and create a new app.
+
+```js
+var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY'); // Android & iOS
+```
+
+```js
+var builder = new RNPollfish.Builder('ANDROID_API_KEY', null); // Android only
+```
+
+```js
+var builder = new RNPollfish.Builder(null, 'IOS_API_KEY'); // iOS only
+```
+
+### 2.1 Configure Pollfish behaviour (Optional)
 
 You can set several params to control the behaviour of Pollfish survey panel within your app with the use of the `RNPollfish.Builder` instance. Below you can see all the available options. Apart from the constructor all the other methods are optional.
 
@@ -67,34 +91,16 @@ Param               | Description
 **`.rewardMode(Boolean)`**                      | Init in reward mode (skip Pollfish indicator to show a custom prompt)
 **`.requestUUID(String)`**                      | Sets a unique id to identify a user and be passed through server-to-server callbacks
 **`.userProperties(Json)`**                     | Send attributes that you receive from your app regarding a user, in order to receive a better fill rate and higher priced surveys. You can see a detailed list of the user attributes you can pass with their keys at the following [link](https://www.pollfish.com/docs/demographic-surveys)
-**`.rewardInfo(Json)`**                         | An object holding information regarding the survey completion reward
+**`.rewardInfo(Json)`**                         | An object holding information regarding the survey completion reward.  If set, `signature` must be calculated in order to receive surveys. See [here](https://www.pollfish.com/docs/api-documentation) in section **`Notes for sig query parameter`**
 **`.clickId(String)`**                          | A pass throught param that will be passed back through server-to-server callback
 **`.signature(String)`**                        | An optional parameter used to secure the `rewardConversion` and `rewardName` parameters passed on `rewardInfo` `Json` object
 
 <br/>
 
-Import `RNPollfish` module
+Example of Pollfish configuration using all the available options
 
 ```js
-import RNPollfish from 'react-native-plugin-pollfish';
-```
-
-Initialize Pollfish
-
-```js
-var params = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY'); // Android & iOS
-```
-
-```js
-var params = new RNPollfish.Builder('ANDROID_API_KEY', null); // Android only
-```
-
-```js
-var params = new RNPollfish.Builder(null, 'IOS_API_KEY'); // iOS only
-```
-
-```js
-params.indicatorPosition(RNPollfish.Position.topLeft)
+builder.indicatorPosition(RNPollfish.Position.topLeft)
     .indicatorPadding(10)
     .offerwallMode(false)
     .rewardMode(false)
@@ -111,26 +117,39 @@ params.indicatorPosition(RNPollfish.Position.topLeft)
         rewardName: 'Points',
         rewardConversion: 1.3
     });
-    
-RNPollfish.init(params.build());
 ```
 
 <br/>
 
-### Debug Vs Release Mode
-
-You can use Pollfish either in Debug or in Release mode. 
-  
-* **Debug mode** is used to show to the developer how Pollfish will be shown through an app (useful during development and testing).
-* **Release mode** is the mode to be used for a released app (start receiving paid surveys).
-
+> ### Debug vs Release Mode
+>
+> You can use Pollfish either in Debug or in Release mode. 
+>  
+> * **Debug mode** is used to show to the developer how Pollfish will be shown through an app (useful during development and testing).
+> * **Release mode** is the mode to be used for a released app (start receiving paid surveys).
+> 
 > **Note:** Be careful to set the `releaseMode` parameter to `true` when you release your app in a relevant app store!!
 
 <br/>
 
-### Reward Mode 
+> ### Reward Mode 
+> 
+> Setting the `rewardMode` to `false` during initialization enables controlling the behavior of Pollfish in an app from the Pollfish panel. Enabling reward mode ignores Pollfish behavior from Pollfish panel. It always skips showing Pollfish indicator (small button) and always force open Pollfish view to app users. This method is usually used when app developers want to somehow incentivize their users before completing surveys to increase completion rates.
 
-Setting the `rewardMode` to `false` during initialization enables controlling the behavior of Pollfish in an app from the Pollfish panel. Enabling reward mode ignores Pollfish behavior from Pollfish panel. It always skips showing Pollfish indicator (small button) and always force open Pollfish view to app users. This method is usually used when app developers want to somehow incentivize their users before completing surveys to increase completion rates.
+<br/>
+
+## 3. Initialize Pollfish
+
+Last but not least. Build the `Params` object by invoking `.build()` on the `RNPollfish.Builder` instance that you've configured earlier and call `RNPollfish.init(params)` passing the `Params` object as an argument.
+
+```js
+var params = builder.build();
+RNPollfish.init(params);
+
+// OR
+
+RNPollfish.init(builder.build());
+```
 
 <br/>
 
