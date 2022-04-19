@@ -18,17 +18,11 @@ import {
 
 function initPollfish(mode) {
   var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY')
-    .indicatorPosition(RNPollfish.Position.bottomLeft);
-  
-  switch (mode) {
-    case "Rewarded":
-      builder.rewardMode(true);
-      break;
-    case "Offerwall":
-      builder
-        .offerwallMode(true)
-        .rewardMode(true);
-      break;
+    .rewardMode(true);
+
+  if (mode == "Offerwall") {
+    builder
+        .offerwallMode(true);
   }
 
   RNPollfish.init(builder.build());
@@ -127,10 +121,6 @@ export default function App() {
       <Tab.Navigator
         activeColor="#e91e63"
         barStyle={{ backgroundColor: 'tomato' }} >
-        <Tab.Screen 
-          name="Default" 
-          component={Details} 
-          initialParams={{ name: "Default" }} />
         <Tab.Screen 
           name="Rewarded" 
           component={Details}

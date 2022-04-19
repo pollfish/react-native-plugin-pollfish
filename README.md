@@ -66,15 +66,18 @@ import RNPollfish from 'react-native-plugin-pollfish';
 The Pollfish plugin must be initialized with one or two api keys depending on which platforms are you targeting. You can retrieve an API key from Pollfish Dashboard when you [sign up](https://www.pollfish.com/signup/publisher) and create a new app.
 
 ```js
-var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY'); // Android & iOS
+var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY')
+    .rewardMode(true); // Android & iOS
 ```
 
 ```js
-var builder = new RNPollfish.Builder('ANDROID_API_KEY', null); // Android only
+var builder = new RNPollfish.Builder('ANDROID_API_KEY', null)
+    .rewardMode(true); // Android only
 ```
 
 ```js
-var builder = new RNPollfish.Builder(null, 'IOS_API_KEY'); // iOS only
+var builder = new RNPollfish.Builder(null, 'IOS_API_KEY')
+    .rewardMode(true); // iOS only
 ```
 
 ### 2.1 Configure Pollfish behaviour (Optional)
@@ -103,7 +106,7 @@ Example of Pollfish configuration using all the available options
 builder.indicatorPosition(RNPollfish.Position.topLeft)
     .indicatorPadding(10)
     .offerwallMode(false)
-    .rewardMode(false)
+    .rewardMode(true)
     .releaseMode(false)
     .requestUUID('REQUEST_UUID')
     .userProperties({
