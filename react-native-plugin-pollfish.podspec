@@ -10,12 +10,12 @@ Pod::Spec.new do |s|
   s.license      = pkg["license"]
   s.authors      = pkg["author"]
 
-  s.platforms    = { :ios => "9.0" }
+  s.platforms    = { :ios => "11.0" }
   s.source       = { :git => pkg["repository"]["url"], :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm}"
   
   s.dependency "React"
-  s.dependency "Pollfish", "6.2.7"
+  s.dependency "Pollfish", "6.3.0"
 
 end

@@ -2,6 +2,8 @@
 #import "RNPollfish.h"
 @import Pollfish;
 
+#define allTrim( object ) [object stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet] ]
+
 @implementation RNPollfish
 {
     bool hasListeners;
@@ -26,9 +28,10 @@ RCT_EXPORT_METHOD(init: (NSString *) androidApiKey
                   userProperties:(NSDictionary *) userProperties
                   rewardInfo:(NSDictionary *) rewardInfoDict
                   clickId:(NSString *) clickId
+                  userId:(NSString *) userId
                   signature:(NSString *) signature)
 {
-    if (iOSApiKey == [NSNull null]) {
+    if (iOSApiKey == (id)[NSNull null]) {
         return;
     }
 
@@ -40,19 +43,23 @@ RCT_EXPORT_METHOD(init: (NSString *) androidApiKey
     [params rewardMode:rewardMode];
     [params platform:PlatformReactNative];
     
-    if (requestUUID != [NSNull null]) {
+    if (![requestUUID isEqual: [NSNull null]] && [allTrim(requestUUID) length] != 0) {
         [params requestUUID:requestUUID];
     }
     
-    if (clickId != [NSNull null]) {
+    if (![clickId isEqual: [NSNull null]] && [allTrim(clickId) length] != 0) {
         [params clickId:clickId];
     }
     
-    if (signature != [NSNull null]) {
+    if (![userId isEqual: [NSNull null]] && [allTrim(userId) length] != 0) {
+        [params userId:userId];
+    }
+    
+    if (![signature isEqual: [NSNull null]] && [allTrim(signature) length] != 0) {
         [params signature:signature];
     }
     
-    if (userProperties != [NSNull null]) {
+    if (![userProperties isEqual: [NSNull null]]) {
         UserProperties *userPropertiesBuilder = [[UserProperties alloc] init];
         
         [userProperties enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
@@ -62,7 +69,7 @@ RCT_EXPORT_METHOD(init: (NSString *) androidApiKey
         [params userProperties:userPropertiesBuilder];
     }
     
-    if (rewardInfoDict != [NSNull null]) {
+    if (rewardInfoDict != nil && rewardInfoDict != (id)[NSNull null]) {
         RewardInfo *rewardInfo = [[RewardInfo alloc] initWithRewardName: [rewardInfoDict valueForKey:@"rewardName"]
                                                        rewardConversion: [[rewardInfoDict valueForKey:@"rewardConversion"] doubleValue]];
         [params rewardInfo:rewardInfo];

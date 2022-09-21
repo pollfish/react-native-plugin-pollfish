@@ -66,6 +66,7 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
             ReadableMap userProperties,
             ReadableMap rewardInfoMap,
             String clickId,
+            String userId,
             String signature
     ) {
         if (getCurrentActivity() == null) {
@@ -98,6 +99,10 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
 
         if (clickId != null && !clickId.isEmpty() && !clickId.equals("null")) {
             params.clickId(clickId);
+        }
+
+        if (userId != null && !userId.isEmpty() && !userId.equals("null")) {
+            params.userId(userId);
         }
 
         if (signature != null && !signature.isEmpty() && !signature.equals("null")) {

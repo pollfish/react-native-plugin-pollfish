@@ -76,6 +76,7 @@ let Params = function(
     requestUUID,
     userProperties,
     clickId,
+    userId,
     rewardInfo,
     signature) {
         this.androidApiKey = androidApiKey;
@@ -88,6 +89,7 @@ let Params = function(
         this.requestUUID = requestUUID;
         this.userProperties = userProperties;
         this.clickId = clickId;
+        this.userId = userId;
         this.rewardInfo = rewardInfo;
         this.signature = signature;
     };
@@ -103,6 +105,7 @@ let Builder = function(androidApiKey, iOSApiKey) {
     this._requestUUID = null;
     this._userProperties = {};
     this._clickId = null;
+    this._userId = null;
     this._rewardInfo = null;
     this._signature = null;
 };
@@ -196,6 +199,17 @@ Builder.prototype.clickId = function(clickId) {
 };
 
 /**
+ * A unique id to identify a user
+ * 
+ * @param {String} userId 
+ * @returns 
+ */
+Builder.prototype.userId = function(userId) {
+    this._userId = userId;
+    return this;
+}
+
+/**
  * An optional parameter used to secure the rewardConversion and rewardName parameters passed on RewardInfo object
  * 
  * @param {String} signature 
@@ -234,6 +248,7 @@ Builder.prototype.build = function() {
         this._requestUUID,
         this._userProperties,
         this._clickId,
+        this._userId,
         this._rewardInfo,
         this._signature
     );
@@ -251,7 +266,7 @@ module.exports = {
     PollfishSurveyNotAvailableListener,
     PollfishUserNotEligibleListener,
     PollfishUserRejectedSurveyListener,
-    init: (params) => RNPollfish.init(params.androidApiKey, params.iOSApiKey, params.indicatorPosition, params.indicatorPadding, params.offerwallMode, params.releaseMode, params.rewardMode, params.requestUUID, params.userProperties, params.rewardInfo, params.clickId, params.signature),
+    init: (params) => RNPollfish.init(params.androidApiKey, params.iOSApiKey, params.indicatorPosition, params.indicatorPadding, params.offerwallMode, params.releaseMode, params.rewardMode, params.requestUUID, params.userProperties, params.rewardInfo, params.clickId, params.userId, params.signature),
     show: () => RNPollfish.show(),
     hide: () => RNPollfish.hide(),
     isPollfishPanelOpen: (func) => RNPollfish.isPollfishPanelOpen(func),
