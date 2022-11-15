@@ -38,7 +38,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation 'com.facebook.react:react-native:+'
     implementation 'com.pollfish:pollfish-googleplay:6.3.0'
 }
   
