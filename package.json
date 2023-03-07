@@ -1,6 +1,6 @@
 {
     "name": "react-native-plugin-pollfish",
-    "version": "2.1.4",
+    "version": "2.1.5",
     "description": "Pollfish React Native SDK",
     "main": "index.js",
     "scripts": {

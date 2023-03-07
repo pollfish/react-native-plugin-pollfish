@@ -1,4 +1,4 @@
 target 'RNPollfish' do
   use_frameworks!
-  pod 'Pollfish', '6.3.1' 
+  pod 'Pollfish', '6.4.0' 
 end
