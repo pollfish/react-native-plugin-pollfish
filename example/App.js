@@ -17,8 +17,9 @@ import {
 } from 'react-native';
 
 function initPollfish(mode) {
-  var builder = new RNPollfish.Builder('ANDROID_API_KEY', 'IOS_API_KEY')
-    .rewardMode(true);
+  var builder = new RNPollfish.Builder('17e9ea57-64d9-4e2b-8aaf-c7a5ef330b37', '17e9ea57-64d9-4e2b-8aaf-c7a5ef330b37')
+    .rewardMode(true)
+    .placementId("test");
 
   if (mode == "Offerwall") {
     builder

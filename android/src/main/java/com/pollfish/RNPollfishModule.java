@@ -67,7 +67,8 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
             ReadableMap rewardInfoMap,
             String clickId,
             String userId,
-            String signature
+            String signature,
+            String placementId
     ) {
         if (getCurrentActivity() == null) {
             Log.w(TAG, "Pollfish initialization failed because getCurrentActivity == null");
@@ -107,6 +108,10 @@ public class RNPollfishModule extends ReactContextBaseJavaModule implements
 
         if (signature != null && !signature.isEmpty() && !signature.equals("null")) {
             params.signature(signature);
+        }
+
+        if (placementId != null && !placementId.isEmpty() && !placementId.equals("null")) {
+            params.placementId(placementId);
         }
 
         if (rewardInfoMap != null) {

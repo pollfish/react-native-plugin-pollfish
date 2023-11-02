@@ -29,7 +29,8 @@ RCT_EXPORT_METHOD(init: (NSString *) androidApiKey
                   rewardInfo:(NSDictionary *) rewardInfoDict
                   clickId:(NSString *) clickId
                   userId:(NSString *) userId
-                  signature:(NSString *) signature)
+                  signature:(NSString *) signature
+                  placementId:(NSString *) placementId)
 {
     if (iOSApiKey == (id)[NSNull null]) {
         return;
@@ -57,6 +58,10 @@ RCT_EXPORT_METHOD(init: (NSString *) androidApiKey
     
     if (![signature isEqual: [NSNull null]] && [allTrim(signature) length] != 0) {
         [params signature:signature];
+    }
+
+    if (![placementId isEqual: [NSNull null]] && [allTrim(placementId) length] != 0) {
+        [params placementId:placementId];
     }
     
     if (![userProperties isEqual: [NSNull null]]) {

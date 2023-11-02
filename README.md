@@ -84,20 +84,21 @@ var builder = new RNPollfish.Builder(null, 'IOS_API_KEY')
 
 You can set several params to control the behaviour of Pollfish survey panel within your app with the use of the `RNPollfish.Builder` instance. Below you can see all the available options. Apart from the constructor all the other methods are optional.
 
-Param               | Description
---------------------|:---------
-**`constructor(String, String)`**               | Sets Your Android and iOS API Keys (from step 2)
-**`.indicatorPosition(RNPollfish.Position)`**   | Sets the Position where you wish to place the Pollfish indicator. There are six different options RNPollfish.Position.{topLeft, topRight, middleLeft, middleRight, bottomLeft, bottom Right}: 
-**`.indicatorPadding(Int)`**                    | Sets the padding from top or bottom depending on the position of the indicator specified before (if used in middle position, padding is calculated from the top).
-**`.offerwallMode(Boolean)`**                   | Sets Pollfish to offerwall mode
-**`.releaseMode(Boolean)`**                     | Choose Debug or Release Mode
-**`.rewardMode(Boolean)`**                      | Init in reward mode (skip Pollfish indicator to show a custom prompt)
-**`.requestUUID(String)`**                      | Sets a unique id to identify a user and be passed through server-to-server callbacks
-**`.userProperties(Json)`**                     | Send attributes that you receive from your app regarding a user, in order to receive a better fill rate and higher priced surveys. You can see a detailed list of the user attributes you can pass with their keys at the following [link](https://www.pollfish.com/docs/demographic-surveys)
-**`.rewardInfo(Json)`**                         | An object holding information regarding the survey completion reward.  If set, `signature` must be calculated in order to receive surveys. See [here](https://www.pollfish.com/docs/api-documentation) in section **`Notes for sig query parameter`**
-**`.clickId(String)`**                          | A pass throught param that will be passed back through server-to-server callback
-**`.userId(String)`**                           | A unique id to identify users
-**`.signature(String)`**                        | An optional parameter used to secure the `rewardConversion` and `rewardName` parameters passed on `rewardInfo` `Json` object
+| Param                                         | Description
+|-----------------------------------------------|----------------------------------
+| **`constructor(String, String)`**             | Sets Your Android and iOS API Keys (from step 2).
+| **`.indicatorPosition(RNPollfish.Position)`** | Sets the Position where you wish to place the Pollfish indicator. There are six different options RNPollfish.Position.| {topLeft, topRight, middleLeft, middleRight, bottomLeft, bottom Right}.
+| **`.indicatorPadding(Int)`**                  | Sets the padding from top or bottom depending on the position of the indicator specified before (if used in middle position, | padding is calculated from the top).
+| **`.offerwallMode(Boolean)`**                 | Sets Pollfish to offerwall mode.
+| **`.releaseMode(Boolean)`**                   | Choose Debug or Release Mode.
+| **`.rewardMode(Boolean)`**                    | Init in reward mode (skip Pollfish indicator to show a custom prompt).
+| **`.requestUUID(String)`**                    | Sets a unique id to identify a user and be passed through server-to-server callbacks.
+| **`.userProperties(Json)`**                   | Send attributes that you receive from your app regarding a user, in order to receive a better fill rate and higher priced | surveys. You can see a detailed list of the user attributes you can pass with their keys at the following [link](ht ://www.pollfish.com/docs/demographic-surveys).
+| **`.rewardInfo(Json)`**                       | An object holding information regarding the survey completion reward.  If set, `signature` must be calculated in order to | receive surveys. See [here](https://www.pollfish.com/docs/api-documentation) in section **`Notes for sig  ry parameter`**.
+| **`.clickId(String)`**                        | A pass throught param that will be passed back through server-to-server callback.
+| **`.userId(String)`**                         | A unique id to identify users.
+| **`.signature(String)`**                      | An optional parameter used to secure the `rewardConversion` and `rewardName` parameters passed on `rewardInfo` `Json` object.
+| **`.placementId(String)`**                    | The id of the placement to load. If skipped the default placement of the ad unit will be loaded.
 
 <br/>
 
@@ -118,6 +119,7 @@ builder.indicatorPosition(RNPollfish.Position.topLeft)
     .clickId('CLICK_ID')
     .userId('USER_ID')
     .signature('SINGNATURE')
+    .placementId('PLACEMENT_ID')
     .rewardInfo({
         rewardName: 'Points',
         rewardConversion: 1.3
